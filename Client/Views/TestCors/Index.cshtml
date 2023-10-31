@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    $.ajax({
+        url: "https://localhost:7078/api/Employee",
+        //type: "GET",
+        //"datatype":"json",
+        //"dataSrc":"Data",
+        success: function (result) {
+            console.log(result);
+        }
+    })
+</script>

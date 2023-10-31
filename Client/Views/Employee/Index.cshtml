@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/datatable_layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Data Table Employee</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                   
+                    <!-- /.card -->
+                    
+                    <div class="modal fade" id="modal-default">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="modalLabel"></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                @* add and edit data Employee *@
+                                <form method="POST">
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <div class="form-group row col-6" id="nikhide">
+                                                <label for="nik">NIK</label>
+                                                <input type="text" class="form-control" id="nik" name="nik" placeholder="enter your nik" disabled>
+                                            </div>
+                                            <div class="form-group col-6" id="emailhide">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="enter your email" disabled>
+                                            </div>
+                                            <div class="form-group row col-6">
+                                                <label for="firstName">First Name</label>
+                                                <input type="text" class="form-control" id="firstName"
+                                                name="firstName" placeholder="Enter your firstname">
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="lastname">Last name</label>
+                                                <input type="text" class="form-control" id="lastname" 
+                                                name="lastname" placeholder="enter your lastname">
+                                            </div>
+                                            <div class="form-group row col-12">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="enter your phone">
+                                            </div>
+                                            <div class="form-group row col-12">
+                                                <label for="address">Address</label>
+                                                <input type="text" class="form-control" id="address" name="address" placeholder="enter your address">
+                                            </div>
+                                            <div class="form-group row col-6">
+                                                <label for="isactive">Status</label>
+                                                <select class="form-control" name="isactive" id="isactive">
+                                                    <option disable selected>Choose status employee</option>
+                                                    <option value="true">Aktif</option>
+                                                    <option value="false">Tidak Aktif</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="name_dept">Department name</label>
+                                                <select class="form-control" name="name_dept" id="name_dept">
+                                                    <option disable selected>Choose your department</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                                        <button type="submit" class="btn btn-primary" data-tooltip="tooltip"
+                                                data-placement="right" title="add new employee" 
+                                                id="addButton" onclick="addEmployee(event)">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <button type="submit" class="btn btn-warning" data-tooltip="tooltip"
+                                                data-placement="right" title="edit data employee" 
+                                                id="editButton" onclick="editEmployee(event)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Table Employees</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6" style="">
+                                    <div class="dt-buttons btn-group flex-wrap">
+                                        <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button">
+                                            <span>Copy</span>
+                                        </button>
+                                        <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button">
+                                            <span>CSV</span>
+                                        </button>
+                                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button">
+                                            <span>Excel</span>
+                                        </button>
+                                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button">
+                                            <span>PDF</span>
+                                        </button>
+                                        <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button">
+                                            <span>Print</span>
+                                        </button>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true" aria-expanded="false" style="">
+                                                <span>Column visibility</span>
+                                                <span class="dt-down-arrow"></span>
+                                            </button>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-tooltip="tooltip" data-placement="right" 
+                                                data-target="#modal-default" title="Add new employee"
+                                                onclick="setAddEmployeeModal(event)">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No.</th>
+                                        <th>NIK</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>Status</th>
+                                        <th>Departemen Id</th>
+                                        <th>Departemen Name</th>
+                                    </tr>
+                                </thead>
+                               
+                                @* <tbody>
+                                    
+                                </tbody>*@
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+@section Scripts{
+    <!-- jQuery -->
+    <script src="~/adminlte-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="~/adminlte-3.2.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/jszip/jszip.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/adminlte-3.2.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte-3.2.0/docs/assets/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/adminlte-3.2.0/docs/assets/js/demo.js"></script>
+    
+    <!-- Page specific script -->
+    <script src="~/js/employe.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+  
+}
